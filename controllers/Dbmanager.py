@@ -31,7 +31,7 @@ class Dbmanager:
         produtos_txt = open('controllers/produtos.txt', 'r').readlines()
         products = []
         for produto_line in produtos_txt:
-            infos = produto_line.strip('\n').split(',')
+            infos = produto_line.strip('\n').split(':')
             id = infos[0]
             name = infos[1]
             price = infos[2]
@@ -153,3 +153,11 @@ class Dbmanager:
                     return content[0]
 
         return None
+
+    @staticmethod
+    def getAllCustomerOrders():
+        co_txt = open('controllers/relClientePedido.txt', 'r').readlines()
+        co = []
+        for co_line in co_txt:
+            co.append(co_line.strip(':\n'))
+        return co

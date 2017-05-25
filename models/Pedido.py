@@ -10,7 +10,8 @@ class Pedido:
         file.close()
         self.idPedido = self.linhas_txt + 1
         dt = datetime.datetime.now()
-        self.date = datetime.date(dt.year, dt.month, dt.day)
+        dt = datetime.date(dt.year, dt.month, dt.day)
+        self.date = datetime.date.strftime(dt, '%d/%m/%y')
         self.pago = False
         self.status = 'Aguardando Pagamento'
         self.carrinho = carrinho

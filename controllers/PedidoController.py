@@ -7,11 +7,10 @@ class PedidoController:
 
     @staticmethod
     def buscarProduto():
-        file = open('controllers/produtos.txt', 'r').readlines()
         print('')
-        for line in file:
-            product = line.split(':')
-            print('ID: {} - {} - R$ {}'.format(product[0], product[1], product[2]), end='')
+        id = input('Id do produto: ')
+        prod = Dbmanager.getProduct(id)
+        print(prod)
         print('')
 
     def criarPedido(self):
@@ -39,12 +38,12 @@ class PedidoController:
 
     @staticmethod
     def verificarPedido():
-        id = input('\n\nDigite o ID do pedido: ')
+        id = input('\nDigite o ID do pedido: ')
         Pedido.verificarPedido(id)
 
     @staticmethod
     def cancelarPedido():
-        id = input('\n\nDigite o ID do pedido: ')
+        id = input('\nDigite o ID do pedido: ')
         pedido = Dbmanager.getOrder(id)
         status = pedido['Status']
 
@@ -55,6 +54,30 @@ class PedidoController:
 
     @staticmethod
     def listarPedidosCliente():
-        pass
+        id = input('\nDigite o ID do cliente: ')
+        allPedidos = Dbmanager.getAllCustomerOrders()
+        for pedido in allPedidos:
+            order = pedido.split(',')
+            if order[0] == id:
+                pedido_obj =Dbmanager.getOrder(order[1])
+                print('-'*10)
+                try:
+                    for k in pedido_obj:
+                        if isinstance(pedido_obj[k], list):
+                            for item in pedido_obj[k]:
+                                print(item)
+                        else:
+                            print('{}: {}'.format(k, pedido_obj[k]))
+                except ValueError:
+                    pass
+
+    @staticmethod
+    def inserirProduto():
+        id = len(Dbmanager.getAllProducts()) + 1
+        n = input('Nome: ')
+        preco = input('Preço: R$ ')
+        prod = str(id) + ':' + n + ':' + preco + '\n'
+        Dbmanager.setProduct(prod)
+
 
 

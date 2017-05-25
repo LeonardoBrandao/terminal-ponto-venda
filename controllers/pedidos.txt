@@ -1,10 +1,2 @@
-1,2017-05-25,Aguardando Pagamento,3%Cooler Corsair%1:
-2,2017-05-25,Aguardando Pagamento,1%teste%5:
-3,2017-05-25,Aguardando Pagamento,3%Cooler Corsair%10:
-4,2017-05-25,Aguardando Pagamento,1%teste%3:
-5,2017-05-25,Aguardando Pagamento,1%teste%3:
-6,2017-05-25,Aguardando Pagamento,1%teste%3:3%Cooler Corsair%1:
-7,2017-05-25,Aguardando Pagamento,1%teste%1:
-8,2017-05-25,Aguardando Pagamento,1%teste%3:
-9,2017-05-25,Aguardando Pagamento,1%teste%3:
-10,2017-05-25,Aguardando Pagamento,1%teste%3:
+2,25/05/17,Aguardando Pagamento,1%teste%3:
+3,25/05/17,Aguardando Pagamento,3%Cooler Corsair%1:

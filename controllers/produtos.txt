@@ -1,3 +1,5 @@
 1:teste:100,00
 2:Memoria Kingston:300,00
 3:Cooler Corsair:200,00
+4:Inserçao teste:150,00
+5:teste2:123
