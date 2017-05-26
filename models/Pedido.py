@@ -66,6 +66,7 @@ class Pedido:
         else:
             Dbmanager.setNF(tipo, data, total, idPedido)
             Pedido.mudarPedido(idPedido, 'Aprovado')
+            print('Pagamento realizado com sucesso.')
 
     @staticmethod
     def mudarPedido(id, state):
