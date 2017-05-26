@@ -19,7 +19,7 @@ class PedidoController:
         print('')
 
     def criarPedido(self):
-        file = open(os.path.abspath('controllers/produtos.txt'), 'r').readlines()
+        file = open(os.path.abspath('produtos.txt'), 'r').readlines()
         ids = []
         for line in file:
             product = line.split(':')

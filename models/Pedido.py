@@ -7,7 +7,7 @@ from controllers.ClienteController import ClienteController
 
 class Pedido:
     def __init__(self, carrinho):
-        file = open(os.path.abspath('controllers/pedidos.txt'), 'r')
+        file = open(os.path.abspath('pedidos.txt'), 'r')
         self.linhas_txt = len(file.readlines())
         file.close()
         self.idPedido = self.linhas_txt + 1
