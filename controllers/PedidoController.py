@@ -1,6 +1,7 @@
 from models.Pedido import Pedido
 from controllers.Dbmanager import Dbmanager
 from controllers.ClienteController import ClienteController
+import os
 
 class PedidoController:
     pedido = None
@@ -18,7 +19,7 @@ class PedidoController:
         print('')
 
     def criarPedido(self):
-        file = open('controllers/produtos.txt', 'r').readlines()
+        file = open(os.path.abspath('controllers/produtos.txt'), 'r').readlines()
         ids = []
         for line in file:
             product = line.split(':')

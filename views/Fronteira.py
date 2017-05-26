@@ -15,7 +15,12 @@ if __name__ == "__main__":
         print('9 - Inserir produto.')
         print('0 - SAIR.')
 
-        op = int(input("Selecione uma opção: "))
+        op = None
+        while isinstance(op, int) == False:
+            try:
+                op = int(input('Selecione uma opção: '))
+            except ValueError:
+                print('Valor Inválido.')
 
         if op == 1:
             controller.criarPedido()

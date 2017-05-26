@@ -1,3 +1,10 @@
+Integrantes do grupo:
+Leonardo L. R. T. Brandão
+Felipe Estrela
+Bryan Kim
+
+Turma 03N12
+
 Método Main está em views/Fronteira.py
 
 Estutura dos txt's:
