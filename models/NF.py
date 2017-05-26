@@ -1,18 +1,21 @@
+import collections
+
+
 class NotaFiscal:
-    def __init__(self, total, tipo_pag, pedido):
-        self.total = total
-        self.taxa = total*0.2
-        self.tipo_pagamento = tipo_pag
-        self.data = pedido.data
+    def __init__(self, id, idPedido, tipo, data, total,):
+        self.id = id
+        self.idPedido = idPedido
+        self.tipo = tipo
+        self.data = data
+        self.total = str(total).replace(',', '.')
+        self.taxa = round(float(self.total)*0.2, 2)
 
-        nf = [
-            str(pedido.idPedido),
-            str(self.data),
-            str(self.tipo_pagamento),
-            str(self.taxa),
-            str(self.total)
-        ]
-
-        f = open('NfPedido' + pedido.idPedido + '.txt', 'w')
-        f.writelines(nf)
-        f.close()
+    def infosNF(self):
+        return collections.OrderedDict([
+            ('Id', self.id),
+            ('Id Pedido', self.idPedido),
+            ('Tipo', self.tipo),
+            ('Data', self.data),
+            ('Taxa', self.taxa),
+            ('Total', self.total)
+        ])

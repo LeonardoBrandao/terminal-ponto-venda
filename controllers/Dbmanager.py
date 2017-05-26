@@ -2,6 +2,7 @@ import collections
 
 from models.Item import Item
 from models.Produto import Produto
+from models.NF import NotaFiscal
 
 
 class Dbmanager:
@@ -59,7 +60,7 @@ class Dbmanager:
         for pedido_line in pedidos_txt:
             pedido = pedido_line.strip(':\n').split(',')
             if pedido[0] == order_id:
-                itens = pedido[3].split(':')
+                itens = pedido[4].split(':')
                 itens_pedido = []
                 for item in itens:
                     item = item.strip(':\n').split('%')
@@ -69,7 +70,8 @@ class Dbmanager:
                 order = collections.OrderedDict()
                 order['Id'] = pedido[0]
                 order['Data'] = pedido[1]
-                order['Status'] = pedido[2]
+                order['Total'] = pedido[2]
+                order['Status'] = pedido[3]
                 order['Itens'] = itens_pedido
 
                 return order
@@ -93,7 +95,7 @@ class Dbmanager:
                 f.write(pedido_line)
             else:
                 line = pedido_line.strip(':\n').split(',')
-                wline = line[0] + line[1] + state + line[3]
+                wline = line[0] + ',' + line[1] + ',' + line[2] + ',' + state + ',' + line[4]+ ':\n'
                 f.write(wline)
         f.close()
 
@@ -104,7 +106,7 @@ class Dbmanager:
         clientes_txt = open('controllers/clientes.txt', 'r').readlines()
         for cliente_line in clientes_txt:
             c_infos = cliente_line.strip(',\n').split(',')
-            if c_infos[2] == str(identif) or c_infos[0] == str(id):
+            if c_infos[3] == str(identif) or c_infos[0] == str(id):
                 return c_infos[0]
         return None
 
@@ -161,3 +163,36 @@ class Dbmanager:
         for co_line in co_txt:
             co.append(co_line.strip(':\n'))
         return co
+
+    # metodos relacionados a NF
+
+    @staticmethod
+    def setNF(tipo, date, total, order_id):
+        id = Dbmanager.getAllNFs() + 1
+        taxa = round(float(total) * 0.2, 2)
+        f = open('controllers/nfs.txt', 'a')
+        nf = str(id) + ':' + str(order_id) + ':' + tipo + ':' + date + ':' + str(taxa) + ':' + str(total) + '\n'
+        f.write(nf)
+        f.close()
+
+    @staticmethod
+    def getNF(order_id):
+        f = open('controllers/nfs.txt', 'r').readlines()
+        for line in f:
+            infos = line.strip('\n').split(':')
+            if infos[1] == str(order_id):
+                id = infos[0]
+                pedidoId = infos[1]
+                tipo = infos[2]
+                data = infos[3]
+                total = infos[5]
+                return NotaFiscal(id, pedidoId, tipo, data, total)
+        return None
+
+    @staticmethod
+    def getAllNFs():
+        try:
+            f = open('controllers/nfs.txt', 'r').readlines()
+            return len(f)
+        except FileNotFoundError:
+            return 0

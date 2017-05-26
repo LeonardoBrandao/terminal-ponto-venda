@@ -56,4 +56,4 @@ class ClienteController:
         if op == '1':
             return Dbmanager.getCustomer(id=id)
         else:
-            return Dbmanager.getCustomer(identif=id)
+            return Dbmanager.getCustomer(identif=str(id))

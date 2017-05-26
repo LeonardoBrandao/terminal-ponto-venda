@@ -15,6 +15,11 @@ class Pedido:
         self.pago = False
         self.status = 'Aguardando Pagamento'
         self.carrinho = carrinho
+        self.total = 0
+        for item in self.carrinho:
+            preco = str(Dbmanager.getProduct(item[0]).preco).replace(',', '.')
+            self.total += round((float(preco) * item[1]), 2)
+        self.total = str(self.total)
 
     @staticmethod
     def verificarPedido(pedido_id):
@@ -26,8 +31,8 @@ class Pedido:
                         print(item)
                 else:
                     print('{}: {}'.format(k, pedido[k]))
-        except ValueError:
-            pass
+        except (ValueError, TypeError) as e:
+            print('Pedido não encontrado, tente novamente.')
 
     def salvarPedido(self):
         itens = ''
@@ -41,14 +46,25 @@ class Pedido:
         else:
             cliente = ClienteController.buscarCliente(criarC, doc)
 
-        order = [str(self.idPedido), str(self.date), str(self.status), str(itens), '\n']
+        order = [str(self.idPedido), str(self.date), str(self.total), str(self.status), str(itens), '\n']
 
         Dbmanager.setOrder(order)
         Dbmanager.relCustomerOrder(str(cliente), str(self.idPedido))
 
-    def infosPagamento(self, *args):
-        pass
+    @staticmethod
+    def fazerPagamento(total, idPedido):
+        tipo = input('\n1 - Credito\n2 - Debito\n3 - Dinheiro')
+        pag = input('Pagamento aprovado? [S/n]')
+        data = datetime.datetime.now()
+        data = datetime.date(data.year, data.month, data.day)
+        data = datetime.date.strftime(data, '%d/%m/%y')
+        if pag == 's' or pag == 'S':
+            Dbmanager.setNF(tipo, data, total, idPedido)
+            Pedido.mudarPedido(idPedido, 'Aprovado')
+        else:
+            print('Pagamento foi recusado.')
+            Pedido.mudarPedido(idPedido, 'Pagamento Recusado')
 
     @staticmethod
-    def cancelarPedido(id, state):
+    def mudarPedido(id, state):
         Dbmanager.alterStateOrder(id, state)
