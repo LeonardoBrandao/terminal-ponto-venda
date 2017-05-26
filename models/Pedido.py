@@ -56,7 +56,8 @@ class Pedido:
     @staticmethod
     def fazerPagamento(total, idPedido):
         tipo = input('\n1 - Credito\n2 - Debito\n3 - Dinheiro')
-        pag = input('Pagamento aprovado? [S/n]')
+        pag = 's'
+        pag = input('Pagamento aprovado? [S/n] ')
         data = datetime.datetime.now()
         data = datetime.date(data.year, data.month, data.day)
         data = datetime.date.strftime(data, '%d/%m/%y')
