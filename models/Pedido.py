@@ -56,17 +56,16 @@ class Pedido:
     @staticmethod
     def fazerPagamento(total, idPedido):
         tipo = input('\n1 - Credito\n2 - Debito\n3 - Dinheiro')
-        pag = 's'
         pag = input('Pagamento aprovado? [S/n] ')
         data = datetime.datetime.now()
         data = datetime.date(data.year, data.month, data.day)
         data = datetime.date.strftime(data, '%d/%m/%y')
-        if pag == 's' or pag == 'S':
-            Dbmanager.setNF(tipo, data, total, idPedido)
-            Pedido.mudarPedido(idPedido, 'Aprovado')
-        else:
+        if pag == 'n' or pag == 'N':
             print('Pagamento foi recusado.')
             Pedido.mudarPedido(idPedido, 'Pagamento Recusado')
+        else:
+            Dbmanager.setNF(tipo, data, total, idPedido)
+            Pedido.mudarPedido(idPedido, 'Aprovado')
 
     @staticmethod
     def mudarPedido(id, state):

@@ -50,7 +50,9 @@ class PedidoController:
         self.pedido = Pedido(carrinho)
         self.pedido.salvarPedido()
         pag = input('Pagar agora? [S/n] ')
-        if pag == 's' or pag == 'S':
+        if pag == 'n' or pag == 'N':
+            print('Pedido salvo para pagamento posterior.')
+        else:
             PedidoController.pagarPedido(self.pedido.idPedido)
 
 
