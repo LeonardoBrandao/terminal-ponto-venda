@@ -5,7 +5,7 @@ Bryan Kim
 
 Turma 03N12
 
-Método Main está em views/Fronteira.py
+Método Main está em Fronteira.py
 
 Estutura dos txt's:
     produtos:

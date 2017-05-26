@@ -5,7 +5,7 @@ Simulação de um tpv guardando dados em txt's.
 ## Isso é um projeto de faculdade, não usar em casos reais!
 
 ## Infos:
-Método Main está em views/Fronteira.py
+Método Main está em Fronteira.py
 
 Estutura dos txt's:
 
